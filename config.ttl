@@ -1,0 +1,18 @@
+# sample turtle configuration file for PipeLogger
+# if more than the one resource is specified, only one type sno:PipeLogger will be read and there is no guarantee of which one.
+# all complaints and complements to Erich Bremer (http://www.ebremer.com)  4/10/2013
+@prefix sno: <http://www.ebremer.com/ont/sno#> .               	# Systems and Network Ontology
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .    # if you don't know what this is, please purchase a copy of "Semantic Web for Working Ontologist" - reading is fundamental ;-)
+<http://www.ebremer.com/daemon/archon.ebremer.com/PipeLogger>   # this is the URI for *this* specific instance of PipeLogger.  Used to identify PipeLogger instance to triple store.
+    a sno:PipeLogger ;                                          # well, gotta say what this is or system will run in all defaults.
+    sno:prefix "@prefix http: <http://www.w3.org/2011/http#> . @prefix time: <http://www.w3.org/2006/time/> . @prefix : <http://www.ebremer.com/ont/sno#> . "; # needed since not specified in httpd.conf file
+    sno:buffersize 0;                                         	# number of triples buffered before attempting to send them to the quad store
+    sno:maxbuffersize 50;                                       # maximum number of triples in buffer before PipeLogger flushes them to disk
+    sno:logpath "";                                             # where you want your over-flow logs to go.  Over-flow logs will be flushed when RDF Graph store becomes available.
+    sno:quadstore "http://dnsnameofquadstore.com/sparql-graph-crud?graph-uri=http://www.ebremer.com/log";  # the URI for the RDF Graph Protocol capable quad store
+    sno:realm "SPARQL";                                         # authentication realm used when using authentication with RDF Graph Store
+    sno:uid "username";                                              # username used for RDF Graph Store
+    sno:password "password";                                      # password used for RDF Graph Store
+    sno:authtype sno:Digest;                                    # set to sno:Digest, sno:Basic, or rdf:nil if authentication is not required
+    sno:flushcycle 5000;                                        # how often the timer, in milliseconds, will force a flush to the data store if data is present
+    sno:namedgraph "http://www.ebremer.com/log" .               # not being used at this time.  The named graph is currently specified within sno:quadstore value
